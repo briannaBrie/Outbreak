@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Disease Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Nova Round', cursive;
+        }
+
+        .wrap {
+            background: rgba(0, 0, 0, 0.5) url("https://media1-production-mightynetworks.imgix.net/asset/13805187/story.jpg?ixlib=rails-0.3.0&fm=jpg&q=75&auto=format&w=1400&h=788&fit=crop") no-repeat center;
+            background-size: cover;
+            min-height: 100vh;
+            overflow: hidden;
+            background-blend-mode: overlay;
+        }
+
+        .wave {
+            position: absolute;
+            width: 100%;
+            bottom: -140px;
+            color: #fff;
+            opacity: 1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 80px;
+            background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.6));
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            float: left;
+        }
+
+        header .logo img {
+            display: inline-block;
+            width: 40%;
+            padding: 5px;
+            margin-right: 25px;
+            border: 1px solid #cacaca;
+            border-radius: 20px;
+            box-shadow: 0 5px 0 #cacaca;
+        }
+
+        header .menu {
+            float: right;
+            margin-top: 5px;
+        }
+
+        header ul li {
+            display: inline-block;
+        }
+
+        header ul li a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #ffffff;
+            margin: 0 25px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        header a.active {
+            color: #ffc107;
+        }
+
+        .content {
+            max-width: 55%;
+            padding: 200px 80px 0;
+            color: #fff;
+        }
+
+        .content h1 {
+            font-size: 48px;
+        }
+
+        .content p {
+            font-size: 20px;
+            padding: 25px 0;
+            font-weight: 300;
+        }
+
+        .content .btn-group {
+            margin-top: 45px;
+        }
+
+        .content a {
+            display: inline-block;
+            padding: 15px 45px;
+            text-decoration: none;
+            color: #ffffff;
+            border-radius: 50px;
+        }
+
+        .content a.color1 {
+            background-color: #ffc107;
+        }
+
+        .infectious-diseases {
+            padding: 0 80px;
+            position: relative;
+        }
+
+        .infectious-diseases h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .infectious-diseases hr {
+            border: none;
+            height: 4px;
+            width: 100px;
+            background-color: orange;
+
+        }
+
+        .infectious-diseases-inner {
+            margin-top: 50px;
+        }
+
+        .infectious-diseases-inner a {
+            display: inline-block;
+            width: 14%;
+            padding: 15px;
+            margin-right: 25px;
+            border: 1px solid #cacaca;
+            border-radius: 20px;
+            box-shadow: 0 5px 0 #cacaca;
+        }
+
+        .infectious-diseases-inner img {
+            width: 100%;
+        }
+
+        .button {
+            background-color: #ffc107;
+            border: 2px solid white;
+            border-radius: 30px;
+            text-decoration: none;
+            padding: 10px 28px;
+            color: white;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .button hover {
+            background-color: white;
+            color: blue;
+            border: 2px solid #ffc107;
+        }
+
+        /* MODAL STARTS HERE */
+
+        .bg-modal {
+            background-color: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            display: none;
+            justify-content: center; /*Center items horizontally*/
+            align-items: center; /*Center items vertically*/
+        }
+
+        .bg-modal-edit {
+            background-color: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            display: none;
+            justify-content: center; /*Center items horizontally*/
+            align-items: center; /*Center items vertically*/
+        }
+
+        .bg-modal-delete {
+            background-color: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            display: none;
+            justify-content: center; /*Center items horizontally*/
+            align-items: center; /*Center items vertically*/
+        }
+        .modal-contents {
+            height: 350px;
+            width: 550px;
+            background-color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        input {
+            margin: 15px auto;
+            display: block;
+            width: 40%;
+            padding: 8px;
+            border: 1px solid gray;
+        }
+
+        select {
+            margin: 15px auto;
+            display: block;
+            width: 40%;
+            padding: 8px;
+            border: 1px solid gray;
+        }
+
+        .close {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 42px;
+            color: #333;
+            transform: rotate(45deg);
+            cursor: pointer;
+        }
+
+        .modal-contents label {
+            display: inline;
+            float: left;
+            text-align: right;
+            width: 6em;
+            margin-right: 1em;
+            margin-top: 0.4em;
+        }
+
+
+    </style>
+
+</head>
+
+<div class="wrap">
+    <header>
+        <div class="logo"><img src="../static/images/lion_logo.png"></div>
+        <div class="menu">
+            <ul>
+                <li><a th:href="@{/home}">Home</a></li>
+                <li><a th:href="@{/outbreaks}">Outbreak</a></li>
+                <li><a class="active" href="#">Diseases</a> </li>
+                <li><a th:href="@{/corona}">Corona</a></li>
+            </ul>
+        </div>
+
+    </header>
+    <div class="container">
+
+        <br/><br/> <br/><br/> <br/><br/>
+        <div class="jumbotron">
+            <p class="lead">Total number of cases reported as of today are:</p>
+            <hr class="my-4">
+            <p>
+                <span>New cases reported since previous day are: </span>
+            </p>
+            <button id="new" class="button ">New Incident</button>
+
+
+        </div>
+        <div>
+            <table class="table table-hover table-dark ">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Transmission mode</th>
+                    <th>Region</th>
+                    <th>Symptoms</th>
+                    <th>dateOfLastOutbreak</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr >
+                    <td >name</td>
+                    <td >transimission</td>
+                    <td >region</td>
+                    <td >Symptom</td>
+                    <td >Date</td>
+                    <!--td><button id="edit" class="button ">Edit</button></td>
+                    <td><button id="delete" class="button ">Delete</button></td-->
+                </tr>
+                </tbody>
+            </table>
+
+            <!--New Incident Modal Section -->
+            <div class="bg-modal">
+                <div class="modal-contents">
+
+                    <div class="close">+</div>
+                    <h2>Enter new Outbreak Incident</h2>
+                    <img src="https://richardmiddleton.me/comic-100.png" alt="">
+
+                    <form th:action="@{/diseases}" th:object="" method="post">
+                        <h6><label for="disease">Disease</label></h6>
+                        <select id="disease" name="disease">
+                            <option value="Ebola">Ebola</option>
+                            <option value="Corona">Corona</option>
+                            <option value="Malaria">Malaria</option>
+                            <option value="Cholera">Cholera</option>
+                            <option value="Polio">Polio</option>
+                        </select>
+                        <h6><label for="region">Region</label></h6>
+                        <select id="region" name="region">
+                            <option value="Kenya">Kenya</option>
+                            <option value="DRCongo">DRCongo</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Mali">Mali</option>
+                            <option value="SouthAfrica">SouthAfrica</option>
+                            <option value="Tunisia">Tunisia</option>
+                        </select>
+                        <h6><label for="cases">No of Cases</label></h6>
+                        <input id="cases" type="number" placeholder="No of cases" name="cases">
+
+                        <input class="button" type="submit" value="Save"/>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById('new').addEventListener("click", function () {
+        document.querySelector('.bg-modal').style.display = "flex";
+    });
+    document.getElementById('edit').addEventListener("click", function () {
+        document.querySelector('.bg-modal-edit').style.display = "flex";
+    });
+
+    document.getElementById('delete').addEventListener("click", function () {
+        document.querySelector('.bg-modal-delete').style.display = "flex";
+    });
+
+    document.querySelector('.close').addEventListener("click", function () {
+        document.querySelector('.bg-modal').style.display = "none";
+    });
+    document.querySelector('.close').addEventListener("click", function () {
+        document.querySelector('.bg-modal-edit').style.display = "none";
+    });
+    document.querySelector('.close').addEventListener("click", function () {
+        document.querySelector('.bg-modal-delete').style.display = "none";
+    });
+
+</script>
+</html>
