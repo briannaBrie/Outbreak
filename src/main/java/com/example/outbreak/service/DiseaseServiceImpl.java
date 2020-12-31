@@ -4,13 +4,16 @@ import com.example.outbreak.exception.ResourceNotFoundException;
 import com.example.outbreak.model.Disease;
 import com.example.outbreak.repository.DiseaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-public class DiseaseServiceImpl implements DiseaseService{
-
-    //inject disease repository
+@Service
+@Transactional
+public class DiseaseServiceImpl implements DiseaseService
+{
     @Autowired
     private DiseaseRepository diseaseRepository;
 

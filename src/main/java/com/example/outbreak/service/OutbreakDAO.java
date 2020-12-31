@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class OutbreakDAO {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public OutbreakDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
