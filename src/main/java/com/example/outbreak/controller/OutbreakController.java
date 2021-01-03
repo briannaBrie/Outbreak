@@ -23,7 +23,6 @@ public class OutbreakController {
         LocalDate today = LocalDate.now();
         String todayString = today.toString();
         model.addAttribute("outbreakDataList", outbreakDataList);
-//        model.addAttribute("today", todayString);
         return "/outbreaks";
     }
 
@@ -38,6 +37,7 @@ public class OutbreakController {
         model.addAttribute("outbreakDataList", dao.list());
         return "/outbreaks";
     }
+
     //update
     @PutMapping("/outbreaks/{id")
     public String update(@RequestParam(value = "disease") String disease,
@@ -48,8 +48,8 @@ public class OutbreakController {
         model.addAttribute("outbreakDataList", dao.list());
         return "/outbreaks/{id";
     }
+
     //edit
-    /* */
     @RequestMapping("/outbreaks/{id")
     public ModelAndView edit(@PathVariable (name = "id") int id){
         ModelAndView mav = new ModelAndView("edit_form");

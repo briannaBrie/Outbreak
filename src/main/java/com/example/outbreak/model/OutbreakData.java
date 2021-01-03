@@ -36,8 +36,6 @@ public class OutbreakData {
         this.cases = cases;
     }
 
-
-
     public int getId() {
         return id;
     }
