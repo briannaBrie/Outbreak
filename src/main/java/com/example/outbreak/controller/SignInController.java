@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Controller
+//@Controller
 public class SignInController {
-    //to get login form page
+   /* //to get login form page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getSignForm(){
         //return html page name
@@ -27,5 +27,5 @@ public class SignInController {
         //if username or password is wrong
         model.addAttribute("invalidCredentials", true);
         return "login";
-    }
+    }*/
 }
