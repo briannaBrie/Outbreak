@@ -65,10 +65,10 @@ public class DiseaseController {
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("{id}")
     public Disease update(@PathVariable Long id,
-        @RequestParam String name,
-        @RequestParam String transmission,
-        @RequestParam String region,
-        @RequestParam String symptoms){
+        @RequestParam(value = "name") String name,
+        @RequestParam(value = "transmission") String transmission,
+        @RequestParam(value = "region") String region,
+        @RequestParam(value = "symptoms") String symptoms){
 
         final Disease disease = repo.findById(id)
                 .orElseThrow(
