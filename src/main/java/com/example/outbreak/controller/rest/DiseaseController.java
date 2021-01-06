@@ -41,20 +41,20 @@ public class DiseaseController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Disease save(@RequestBody Disease disease){
-       /* if(disease.getId() != null){
+        if(disease.getId() != null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Disease ID must be left empty when creating a disease");
         }
 
         if(repo.existsById(disease.getId())){
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Disease with the same id already exists");
-        }*/
+        }
         return repo.save(disease);
     }
 
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
-    public void delete(@PathVariable Long id){
+    public void deleteDisease(@PathVariable Long id){
         if(!repo.existsById(id)){
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Disease with the provided ID does not exist");
         }
@@ -63,9 +63,9 @@ public class DiseaseController {
 
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping("{id}")
-    public Disease update(@PathVariable Long id,
-        @RequestParam(value = "name") String name,
+    @PutMapping("{id}/update")
+    public Disease updateDisease(@PathVariable Long id,
+       @Valid @RequestParam(value = "name") String name,
         @RequestParam(value = "transmission") String transmission,
         @RequestParam(value = "region") String region,
         @RequestParam(value = "symptoms") String symptoms){
