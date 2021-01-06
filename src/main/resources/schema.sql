@@ -4,8 +4,7 @@ CREATE TABLE if not exists disease
     name VARCHAR(50)  NOT NULL,
     transmission VARCHAR(250) NOT NULl,
     region VARCHAR(250) NOT NULl,
-    symptoms TEXT NOT NULL,
-    dateOfLastOutbreak DATE NOT NULl
+    symptoms TEXT NOT NULL
 );
 CREATE TABLE if not exists outbreak
 (

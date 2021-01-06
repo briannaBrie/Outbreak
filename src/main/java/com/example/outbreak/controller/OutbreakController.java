@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class OutbreakController {
     @Autowired
     private OutbreakDAO dao;
 
+    //get all outbreaks
     @GetMapping("/outbreaks")
     public String viewHomePage(Model model) {
         List<OutbreakData> outbreakDataList = dao.list();
@@ -28,7 +30,7 @@ public class OutbreakController {
 
     //insert
     @PostMapping("/outbreaks")
-    public String save(@RequestParam(value = "disease") String disease,
+    public String save(@Valid @RequestParam(value = "disease") String disease,
                        @RequestParam(value = "region") String region,
                        @RequestParam(value = "cases") int cases,
                        Model model) {
@@ -40,7 +42,7 @@ public class OutbreakController {
 
     //update
     @PutMapping("/outbreaks/{id")
-    public String update(@RequestParam(value = "disease") String disease,
+    public String update(@Valid @RequestParam(value = "disease") String disease,
                          @RequestParam(value = "region") String region,
                          @RequestParam(value = "cases") int cases,
                          Model model){
@@ -50,12 +52,20 @@ public class OutbreakController {
     }
 
     //edit
-    @RequestMapping("/outbreaks/{id")
+    @RequestMapping("/edit/{id")
     public ModelAndView edit(@PathVariable (name = "id") int id){
         ModelAndView mav = new ModelAndView("edit_form");
         OutbreakData outbreakData = dao.get(id);
         mav.addObject("outbreakData",outbreakData);
 
         return mav;
+    }
+
+    //delete
+    @RequestMapping("/outbreaks/{id")
+    public String delete(@PathVariable (name = "id") int id){
+       dao.delete(id);
+
+        return "/outbreaks/{id";
     }
 }

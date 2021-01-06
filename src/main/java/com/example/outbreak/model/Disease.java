@@ -5,14 +5,16 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "disease")
 public class Disease {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name = "name")
     @NotEmpty(message = "You haven''t entered a name of the disease")
@@ -26,7 +28,7 @@ public class Disease {
 
     @Column(name = "region")
     @NotEmpty(message = "You haven''t entered a region of origin for the disease")
-    @Size(min = 2, max = 20, message = "The region name should be between 2 and 20 characters long")
+    @Size(min = 2, max = 30, message = "The region name should be between 2 and 20 characters long")
     private String region;
 
     @Column(name = "symptoms")
@@ -34,16 +36,16 @@ public class Disease {
     @Size(min = 2, max = 100, message = "The symptoms should be between 2 and 100 characters long")
     private String symptoms;
 
-    @CreationTimestamp
+   /* @CreationTimestamp
     @NotEmpty(message = "You haven''t entered a date")
-    private Date dateOfLastOutbreak;
+    private Date dateOfLastOutbreak;*/
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -70,7 +72,7 @@ public class Disease {
     public void setRegion(String region) {
         this.region = region;
     }
-
+/*
     public Date getDateOfLastOutbreak() {
         return dateOfLastOutbreak;
     }
@@ -78,7 +80,7 @@ public class Disease {
     public void setDateOfLastOutbreak(Date yearOfLastOutbreak) {
         this.dateOfLastOutbreak = yearOfLastOutbreak;
     }
-
+*/
     public String getSymptoms() {
         return symptoms;
     }
@@ -95,7 +97,7 @@ public class Disease {
                 ", transmission='" + transmission + '\'' +
                 ", region='" + region + '\'' +
                 ", symptoms='" + symptoms + '\'' +
-                ", dateOfLastOutbreak=" + dateOfLastOutbreak +
+                //", dateOfLastOutbreak=" + dateOfLastOutbreak +
                 '}';
     }
 }
