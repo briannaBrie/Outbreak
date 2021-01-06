@@ -1,13 +1,10 @@
 package com.example.outbreak.model;
 
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "disease")
@@ -35,11 +32,6 @@ public class Disease {
     @NotEmpty(message = "You haven''t entered the symptoms of the disease")
     @Size(min = 2, max = 100, message = "The symptoms should be between 2 and 100 characters long")
     private String symptoms;
-
-   /* @CreationTimestamp
-    @NotEmpty(message = "You haven''t entered a date")
-    private Date dateOfLastOutbreak;*/
-
 
     public Long getId() {
         return id;
@@ -72,15 +64,7 @@ public class Disease {
     public void setRegion(String region) {
         this.region = region;
     }
-/*
-    public Date getDateOfLastOutbreak() {
-        return dateOfLastOutbreak;
-    }
 
-    public void setDateOfLastOutbreak(Date yearOfLastOutbreak) {
-        this.dateOfLastOutbreak = yearOfLastOutbreak;
-    }
-*/
     public String getSymptoms() {
         return symptoms;
     }
@@ -97,7 +81,6 @@ public class Disease {
                 ", transmission='" + transmission + '\'' +
                 ", region='" + region + '\'' +
                 ", symptoms='" + symptoms + '\'' +
-                //", dateOfLastOutbreak=" + dateOfLastOutbreak +
                 '}';
     }
 }

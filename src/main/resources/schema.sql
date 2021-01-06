@@ -1,6 +1,6 @@
 CREATE TABLE if not exists disease
 (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id IDENTITY,
     name VARCHAR(50)  NOT NULL,
     transmission VARCHAR(250) NOT NULl,
     region VARCHAR(250) NOT NULl,
