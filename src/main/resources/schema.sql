@@ -8,7 +8,7 @@ CREATE TABLE if not exists disease
 );
 CREATE TABLE if not exists outbreak
 (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id IDENTITY,
     disease VARCHAR(50)  NOT NULL,
     region VARCHAR(250) NOT NULl,
     cases INT NOT NULL

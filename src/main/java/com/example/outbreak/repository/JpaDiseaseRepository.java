@@ -10,4 +10,5 @@ public interface JpaDiseaseRepository extends CrudRepository<Disease, Long> {
     Set<Disease> findAllByNameContainsIgnoreCase(String disease_name);
     Set<Disease> findDiseasesByRegionContainsIgnoreCase(String region);
     Set<Disease> findDiseasesBySymptomsContains(String symptoms);
+    Set<Disease> findDiseasesByTransmissionIgnoreCase(String transmision);
 }

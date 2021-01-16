@@ -41,17 +41,17 @@ public class OutbreakController {
     }
 
     //update
-    @PutMapping("/outbreaks/{id")
+    @PostMapping("/outbreaks/{id}")
     public String update(@Valid @RequestParam(value = "disease") String disease,
                          @RequestParam(value = "region") String region,
                          @RequestParam(value = "cases") int cases,
                          Model model){
         dao.update(new OutbreakData(disease, region, cases));
         model.addAttribute("outbreakDataList", dao.list());
-        return "/outbreaks/{id";
+        return "/outbreaks";
     }
 
-    //edit
+   /* //edit
     @RequestMapping("/edit/{id")
     public ModelAndView edit(@PathVariable (name = "id") int id){
         ModelAndView mav = new ModelAndView("edit_form");
@@ -59,13 +59,13 @@ public class OutbreakController {
         mav.addObject("outbreakData",outbreakData);
 
         return mav;
-    }
+    }*/
 
     //delete
-    @RequestMapping("/outbreaks/{id")
+    @PostMapping("/outbreaks/delete/{id}")
     public String delete(@PathVariable (name = "id") int id){
        dao.delete(id);
 
-        return "/outbreaks/{id";
+        return "/outbreaks";
     }
 }

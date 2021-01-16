@@ -19,7 +19,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
 
     public SecurityConfig(DataSource dataSource){
-
         this.dataSource = dataSource;
     }
 

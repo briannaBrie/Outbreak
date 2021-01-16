@@ -44,10 +44,6 @@ public class DiseaseController {
         if(disease.getId() != null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Disease ID must be left empty when creating a disease");
         }
-
-        if(repo.existsById(disease.getId())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT,"Disease with the same id already exists");
-        }
         return repo.save(disease);
     }
 
@@ -64,20 +60,16 @@ public class DiseaseController {
     @Secured("ROLE_ADMIN")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("{id}/update")
-    public Disease updateDisease(@PathVariable Long id,
-       @Valid @RequestParam(value = "name") String name,
-        @RequestParam(value = "transmission") String transmission,
-        @RequestParam(value = "region") String region,
-        @RequestParam(value = "symptoms") String symptoms){
+    public Disease updateDisease(@PathVariable Long id, @RequestBody Disease updateDisease){
 
         final Disease disease = repo.findById(id)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.CONFLICT,"Disease with the provided ID does not exist")
                 );
-        disease.setName(name);
-        disease.setRegion(region);
-        disease.setTransmission(transmission);
-        disease.setSymptoms(symptoms);
+        disease.setName(updateDisease.getName());
+        disease.setRegion(updateDisease.getRegion());
+        disease.setTransmission(updateDisease.getTransmission());
+        disease.setSymptoms(updateDisease.getSymptoms());
 
         return repo.save(disease);
     }

@@ -34,10 +34,9 @@ public class OutbreakDAO {
         SimpleJdbcInsert insertAction = new SimpleJdbcInsert(jdbcTemplate);
         insertAction.withTableName("outbreak").usingColumns("disease", "region", "cases");
 
-        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(outbreak);//automatically creates an sql insert command for you
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(outbreak);
+        //automatically creates an sql insert command for you
         insertAction.execute(param);
-
-
     }
 
     //find an outbreak reported by id
