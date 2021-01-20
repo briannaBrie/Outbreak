@@ -2,141 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Outbreak Disease Tracker</title>
-
-    <link href = "https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet"/>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body{
-            font-family: Arial;
-        }
-        h1,h2,h3,h4,h5,h6{
-            font-family: 'Nova Round', cursive;
-        }
-        .wrap{
-            background: rgba(0, 0, 0, 0.5) url("https://media1-production-mightynetworks.imgix.net/asset/13805187/story.jpg?ixlib=rails-0.3.0&fm=jpg&q=75&auto=format&w=1400&h=788&fit=crop") no-repeat center;
-            background-size: cover;
-            min-height: 100vh;
-            overflow: hidden;
-            background-blend-mode: overlay;
-        }
-        .wave{
-            position:absolute;
-            width:100%;
-            bottom: -140px;
-            color: #fff;
-            opacity: 1;
-        }
-        header{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 25px 80px;
-            background: linear-gradient(to top, transparent, rgba(0,0,0,0.6));
-        }
-        header .logo{
-            font-size: 28px;
-            font-weight: 700;
-            color: #fff;
-            float: left;}
-        header .logo img{
-            display: inline-block;
-            width:40%;
-            padding: 5px;
-            margin-right: 25px;
-            border: 1px solid #cacaca;
-            border-radius: 20px;
-            box-shadow: 0 5px 0 #cacaca;
-        }
-        header .menu{
-            float: right;
-            margin-top: 5px;
-        }
-        header ul li{
-            display: inline-block;
-        }
-        header ul li a{
-            text-decoration: none;
-            font-size: 16px;
-            color: #ffffff;
-            margin: 0 25px;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-        header a.active{
-            color: #ffc107;
-        }
-        .content{
-            max-width: 55%;
-            padding: 200px 80px 0;
-            color: #fff;
-        }
-        .content h1{
-            font-size: 48px;
-        }
-        .content p{
-            font-size: 20px;
-            padding:25px 0;
-            font-weight: 300;
-        }
-        .content .btn-group{
-            margin-top: 45px;
-        }
-        .content a{
-            display: inline-block;
-            padding: 15px 45px;
-            text-decoration: none;
-            color: #ffffff;
-            border-radius: 50px;
-        }
-        .content a.color1{
-            background-color: #ffc107;
-        }
-        .infectious-diseases{
-            padding: 0 80px;
-            position: relative;
-        }
-        .infectious-diseases h3{
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-        .infectious-diseases hr{
-            border: none;
-            height: 4px;
-            width: 100px;
-            background-color: orange;
-
-        }
-        .infectious-diseases-inner{
-            margin-top: 50px;
-        }
-        .infectious-diseases-inner a{
-            display: inline-block;
-            width:14%;
-            padding: 15px;
-            margin-right: 25px;
-            border: 1px solid #cacaca;
-            border-radius: 20px;
-            box-shadow: 0 5px 0 #cacaca;
-        }
-        .infectious-diseases-inner img{
-            width: 100%;
-        }
-
-    </style>
+<head th:replace="fragments::head">
 
 </head>
 <body>
 <div class="wrap">
     <header>
-        <div class="logo"><img src="../static/images/lion_logo.png"> </div>
+        <div class="logo" >
+                <div th:replace="fragments::logo"></div></div>
+
         <div class="menu">
             <ul>
                 <li><a class="active" href="#">Home</a>
@@ -149,17 +23,11 @@
 
     </header>
     <div class = "content">
-        <h1>Prevention is better than cure</h1>
-        <p>Take care of your loved ones by protecting yourself and isolating yourself</p>
-        <div class = "btn-group">
-            <a href="#" class = "color1"> Check Progress</a>
-            <a href="#">Learn More</a>
-        </div>
-
+    <div th:replace="fragments::content"></div></div>
 
     </div>
 </div>
 
-</div>
+<div th:replace="fragments :: js"></div>
 </body>
 </html>

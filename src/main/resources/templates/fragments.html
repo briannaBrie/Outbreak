@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+<head th:fragment="head">
+
+<!--
+    <title>Outbreak Disease Tracker</title>
+    <meta charset="UTF-8"/>
+    <link th:href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet"/>
+    <!--link rel = "logo icon" type="image/x-icon" th:href="@{/images/lion_logo.png}"/-->
+   <!-- <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
+-->
+    <meta charset="UTF-8">
+    <title>Outbreak Disease Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+          crossorigin="anonymous"/>
+
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}"/>
+
+    <link rel="stylesheet" type = "text/css" th:href="@{/css/style.css}"/>
+    <!--Downloaded from https://code.jquery.com/jquery-3.5.1.slim.min.js --><!--
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+-->
+</head>
+
+<div th:fragment="logo" >
+    <div class="logo"><img th:src="@{/images/lion_logo.png}"></div>
+</div>
+
+<div th:fragment="content">
+    <h1>Prevention is better than cure</h1>
+    <p>Take care of your loved ones by protecting yourself and isolating yourself</p>
+    <div class = "btn-group">
+        <a href="#" class = "color1"> Check Progress</a>
+        <a href="#">Learn More</a>
+    </div>
+</div>
+
+<div th:fragment="login-btn-grp">
+    <h1>Welcome to Disease Tracker</h1>
+    <p>Take care of your loved ones by protecting yourself and isolating yourself</p>
+
+    <a href="#" class="color1" id="login"> Login</a>
+    <!--Login Modal Section -->
+    <div class="bg-modal">
+        <div class="modal-contents">
+
+            <div class="close">+</div>
+            <h2>Welcome Back</h2>
+            <img src="https://richardmiddleton.me/comic-100.png" alt="">
+
+            <form th:action="@{/login}" th:object="${loginForm}" method="post">
+                <h6><label for="username">Username</label></h6>
+                <input id="username" type="text" placeholder="username" name="username" autofocus="autofocus">
+                <h6><label for="password">Password</label></h6>
+                <input id="password" type="password" placeholder="password" name="password">
+                <input class="button" type="submit" value="Sign In"/>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div th:fragment="table">
+    <table class="table table-hover table-dark ">
+        <thead>
+        <tr>
+            <th>Disease</th>
+            <th>Region</th>
+            <th>No of Cases</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="outbreak: ${outbreakDataList}">
+            <td th:text="${outbreak.disease}"></td>
+            <td th:text="${outbreak.region}"></td>
+            <td th:text="${outbreak.cases}">0</td>
+            <td>
+                <button id="edit" class="button ">Edit</button>
+                    <!--<a style="color: #fff;" th:href="@{'/outbreaks/'+${outbreak.id}}">Edit</a> -->
+            </td>
+            <td>
+                <button id="delete" class="button">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="table-header">
+    <p class="lead">Total number of global cases reported as of today are:</p>
+    <!--h1 class="display-4" th:text="${totalReportedCases}"></h1-->
+    <hr class="my-4">
+    <p>
+        <span>New cases reported since previous day are: </span>
+        <!--span th:text="${totalNewCases}"></span-->
+    </p>
+    <button id="new" class="button ">New Incident</button>
+</div>
+
+<div th:fragment="new-incident">
+    <div class="bg-modal">
+        <div class="modal-contents">
+
+            <div class="close">+</div>
+            <h2>Enter new Outbreak Incident</h2>
+
+            <form th:action="@{/outbreaks}" th:object="${outbreakData}" method="post">
+                <h6><label for="disease">Disease</label></h6>
+                <select id="disease" name="disease">
+                    <option value="Ebola">Ebola</option>
+                    <option value="Corona">Corona</option>
+                    <option value="Malaria">Malaria</option>
+                    <option value="Cholera">Cholera</option>
+                    <option value="Polio">Polio</option>
+                </select>
+                <h6><label for="region">Region</label></h6>
+                <select id="region" name="region">
+                    <option value="Kenya">Kenya</option>
+                    <option value="DRCongo">DRCongo</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Uganda">Uganda</option>
+                    <option value="Tanzania">Tanzania</option>
+                    <option value="Mali">Mali</option>
+                    <option value="SouthAfrica">SouthAfrica</option>
+                    <option value="Tunisia">Tunisia</option>
+                </select>
+                <h6><label for="cases">No of Cases</label></h6>
+                <input id="cases" type="number" placeholder="No of cases" name="cases">
+
+                <input class="button" type="submit" value="Save"/>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div th:fragment="edit-incident">
+    <div class="bg-modal-edit">
+        <div class="modal-contents">
+
+            <div class="close">+</div>
+            <h2>Update Outbreak Incident(s)</h2>
+            <img src="https://richardmiddleton.me/comic-100.png" alt="">
+
+            <form th:action="@{/outbreaks}" th:object="${outbreakData}" method="post">
+                <h6><label for="diseaseEdit">Disease</label></h6>
+                <input id="diseaseEdit" type="text"  name="diseaseEdit" value = "">
+
+                <h6><label for="regionEdit">Region</label></h6>
+                <input id="regionEdit" type="text"  name="regionEdit" value = "">
+
+                <h6><label for="casesEdit">No of Cases</label></h6>
+                <input id="casesEdit" type="number"  name="casesEdit">
+
+                <input class="button" type="submit" value="Update"/>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div th:fragment="delete-incident">
+    <div class="bg-modal-delete">
+        <div class="modal-contents">
+
+            <div class="close">+</div>
+            <h2>Delete Outbreak Incident(s)</h2>
+            <img src="https://richardmiddleton.me/comic-100.png" alt="">
+
+            <form th:action="@{/outbreaks}" th:object="${outbreakData}" method="post">
+                <h6><label for="diseaseDelete">Disease</label></h6>
+                <input id="diseaseDelete" type="text"  name="diseaseDelete" value = "">
+
+                <h6><label for="regionDelete">Region</label></h6>
+                <input id="regionDelete" type="text"  name="regionDelete" value = "">
+
+                <h6><label for="casesDelete">No of Cases</label></h6>
+                <input id="casesDelete" type="number" name="casesDelete">
+
+                <input class="button" type="submit" value="Delete"/>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div th:fragment="js">
+    <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <!-- Downloaded from https://code.jquery.com/jquery-3.5.1.slim.min.js -->
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
+    <script type="text/javascript" th:src="@{/js/login.js}"></script>
+</div>
+
+</body>
+
+</html>

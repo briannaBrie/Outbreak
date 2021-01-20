@@ -2,226 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Outbreak Disease Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-          crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}"/>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: Arial;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Nova Round', cursive;
-        }
-
-        .wrap {
-            background: rgba(0, 0, 0, 0.5) url("https://media1-production-mightynetworks.imgix.net/asset/13805187/story.jpg?ixlib=rails-0.3.0&fm=jpg&q=75&auto=format&w=1400&h=788&fit=crop") no-repeat center;
-            background-size: cover;
-            min-height: 100vh;
-            overflow: hidden;
-            background-blend-mode: overlay;
-        }
-
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 25px 80px;
-            background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.6));
-        }
-
-        header .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #fff;
-            float: left;
-        }
-
-        header .logo img {
-            display: inline-block;
-            width: 40%;
-            padding: 5px;
-            margin-right: 25px;
-            border: 1px solid #cacaca;
-            border-radius: 20px;
-            box-shadow: 0 5px 0 #cacaca;
-        }
-
-
-        .content {
-            max-width: 55%;
-            padding: 200px 80px 0;
-            color: #fff;
-        }
-
-        .content h1 {
-            font-size: 48px;
-        }
-
-        .content p {
-            font-size: 20px;
-            padding: 25px 0;
-            font-weight: 300;
-        }
-
-        .content a {
-            display: inline-block;
-            padding: 15px 45px;
-            text-decoration: none;
-            color: #ffffff;
-            border-radius: 50px;
-        }
-
-        .content a.color1 {
-            background-color: #ffc107;
-        }
-
-
-        .button {
-            background-color: #ffc107;
-            border: 2px solid white;
-            border-radius: 30px;
-            text-decoration: none;
-            padding: 10px 28px;
-            color: white;
-            margin-top: 10px;
-            display: inline-block;
-        }
-
-        .button hover {
-            background-color: white;
-            color: blue;
-            border: 2px solid #ffc107;
-        }
-
-        /* MODAL STARTS HERE */
-
-        .bg-modal {
-            background-color: rgba(0, 0, 0, 0.8);
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            display: none;
-            justify-content: center; /*Center items horizontally*/
-            align-items: center; /*Center items vertically*/
-        }
-
-
-        .modal-contents {
-            height: 350px;
-            width: 550px;
-            background-color: white;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            border-radius: 4px;
-        }
-
-        input {
-            margin: 15px auto;
-            display: block;
-            width: 40%;
-            padding: 8px;
-            border: 1px solid gray;
-        }
-
-        select {
-            margin: 15px auto;
-            display: block;
-            width: 40%;
-            padding: 8px;
-            border: 1px solid gray;
-        }
-
-        .close {
-            position: absolute;
-            top: 0;
-            right: 10px;
-            font-size: 42px;
-            color: #333;
-            transform: rotate(45deg);
-            cursor: pointer;
-        }
-
-        .modal-contents label {
-            display: inline;
-            float: left;
-            text-align: right;
-            width: 6em;
-            color: black;
-            margin-right: 1em;
-            margin-top: 0.4em;
-        }
-
-        .modal-contents h1, h2, h3, h4, h5, h6 {
-            color: black;
-        }
-
-
-    </style>
+<head th:replace="fragments::head" >
 
 </head>
+
 <body>
 <div class="wrap">
     <header>
-        <div class="logo"><img src="../static/images/lion_logo.png"></div>
-
+        <div class="logo" >
+            <div th:replace="fragments::logo"></div></div>
 
     </header>
-    <div class="content">
-        <h1>Welcome to Disease Tracker</h1>
-        <p>Take care of your loved ones by protecting yourself and isolating yourself</p>
+    <div class="content" >
+        <div th:replace="fragments::login-btn-grp">
 
-        <a href="#" class="color1" id="login"> Login</a>
-
-
-        <!--Login Modal Section -->
-        <div class="bg-modal">
-            <div class="modal-contents">
-
-                <div class="close">+</div>
-                <h2>Welcome Back</h2>
-                <img src="https://richardmiddleton.me/comic-100.png" alt="">
-
-                <form th:action="@{/login}" th:object="${loginForm}" method="post">
-                    <h6><label for="username">Username</label></h6>
-                    <input id="username" type="text" placeholder="username" name="username" autofocus="autofocus">
-                    <h6><label for="password">Password</label></h6>
-                    <input id="password" type="password" placeholder="password" name="password">
-                    <input class="button" type="submit" value="Sign In"/>
-                </form>
-
-            </div>
         </div>
-        <!-- end of Modal Section-->
     </div>
 </div>
 
 </div>
+<div th:replace="fragments :: js"></div>
 </body>
-<script>
-    document.getElementById('login').addEventListener("click", function () {
-        document.querySelector('.bg-modal').style.display = "flex";
-    });
 
-    document.querySelector('.close').addEventListener("click", function () {
-        document.querySelector('.bg-modal').style.display = "none";
-    });
-</script>
 </html>

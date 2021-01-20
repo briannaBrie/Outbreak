@@ -15,9 +15,9 @@ CREATE TABLE if not exists outbreak
 );
 
 CREATE TABLE if not exists users (
-                                     username varchar(20) not null primary key,
-                                     password varchar(100) not null,
-                                     enabled boolean not null
+    username varchar(20) not null primary key,
+    password varchar(100) not null,
+    enabled boolean not null
 );
 
 CREATE TABLE if not exists authorities (

@@ -30,6 +30,7 @@ public class DiseaseController {
     public Iterable<Disease> findAll(){
         return repo.findAll();
     }
+
     @GetMapping({"{id}"})
     public Disease findDiseaseById(@PathVariable Long id){
         return repo.findById(id)
