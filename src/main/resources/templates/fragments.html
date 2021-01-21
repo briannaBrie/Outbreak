@@ -6,14 +6,7 @@
 <body>
 <head th:fragment="head">
 
-<!--
-    <title>Outbreak Disease Tracker</title>
-    <meta charset="UTF-8"/>
-    <link th:href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet"/>
-    <!--link rel = "logo icon" type="image/x-icon" th:href="@{/images/lion_logo.png}"/-->
-   <!-- <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
--->
+
     <meta charset="UTF-8">
     <title>Outbreak Disease Tracker</title>
     <link href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet"/>
@@ -25,10 +18,7 @@
           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}"/>
 
     <link rel="stylesheet" type = "text/css" th:href="@{/css/style.css}"/>
-    <!--Downloaded from https://code.jquery.com/jquery-3.5.1.slim.min.js --><!--
-    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/main.js}"></script>
--->
+
 </head>
 
 <div th:fragment="logo" >
@@ -36,33 +26,41 @@
 </div>
 
 <div th:fragment="content">
-    <h1>Prevention is better than cure</h1>
-    <p>Take care of your loved ones by protecting yourself and isolating yourself</p>
+    <h1 th:text="#{msg.caution}"></h1>
+    <p th:text="#{msg.caution_msg}"></p>
     <div class = "btn-group">
-        <a href="#" class = "color1"> Check Progress</a>
-        <a href="#">Learn More</a>
+        <a href="#" class = "color1" th:text="#{msg.monitor}"></a>
     </div>
 </div>
 
 <div th:fragment="login-btn-grp">
-    <h1>Welcome to Disease Tracker</h1>
-    <p>Take care of your loved ones by protecting yourself and isolating yourself</p>
+    <h1 th:text="#{msg.appName}"></h1>
+    <p th:text="#{msg.caution_msg}"></p>
 
-    <a href="#" class="color1" id="login"> Login</a>
+    <a href="#" class="color1" id="login" th:text="#{msg.login}"> </a>
+
+    <div>
+        <a href="#" class="color2" id="language"> <span th:text="#{msg.language}"> </span></a>
+        <select id="locales">
+            <option value="en" th:selected="${#locale.language == 'en'}" th:text="#{msg.lang.en}"></option>
+            <option value="sw" th:selected="${#locale.language == 'sw'}" th:text="#{msg.lang.sw}"></option>
+        </select>
+    </div>
+
     <!--Login Modal Section -->
     <div class="bg-modal">
         <div class="modal-contents">
 
             <div class="close">+</div>
-            <h2>Welcome Back</h2>
+            <h2 th:text="#{msg.title}"></h2>
             <img src="https://richardmiddleton.me/comic-100.png" alt="">
 
             <form th:action="@{/login}" th:object="${loginForm}" method="post">
-                <h6><label for="username">Username</label></h6>
+                <h6><label for="username" th:text="#{msg.uname}"></label></h6>
                 <input id="username" type="text" placeholder="username" name="username" autofocus="autofocus">
-                <h6><label for="password">Password</label></h6>
+                <h6><label for="password" th:text="#{msg.pass}"></label></h6>
                 <input id="password" type="password" placeholder="password" name="password">
-                <input class="button" type="submit" value="Sign In"/>
+                <input class="button" type="submit" th:text="#{msg.login}"/>
             </form>
 
         </div>
@@ -86,7 +84,7 @@
             <td th:text="${outbreak.region}"></td>
             <td th:text="${outbreak.cases}">0</td>
             <td>
-                <button id="edit" class="button ">Edit</button>
+                <button id="edit" class="button ">Update</button>
                     <!--<a style="color: #fff;" th:href="@{'/outbreaks/'+${outbreak.id}}">Edit</a> -->
             </td>
             <td>

@@ -23,7 +23,8 @@ public class Webconfig implements WebMvcConfigurer {
         //set the local resolver for this session and as long as you are in this
         //session you use it. You override the default one
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
-        //Two ways to use the lenglish default locale. Use the predefined one or
+
+        //Two ways to use the english default locale. Use the predefined one or
         //create one of your own. e.g one in English and then make a Swahili one
         //sessionLocaleResolver.setDefaultLocale(Locale.ENGLISH);
         sessionLocaleResolver.setDefaultLocale(new Locale("en"));
@@ -43,7 +44,7 @@ public class Webconfig implements WebMvcConfigurer {
     public MessageSource source(){
         //define the type we are using and its location in the project
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:i18n");
+        messageSource.setBasename("classpath:i18n/messages");
 
         return messageSource;
     }
@@ -59,7 +60,6 @@ public class Webconfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-
         registry.addViewController("/login");
     }
 

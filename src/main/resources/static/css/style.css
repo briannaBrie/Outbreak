@@ -108,6 +108,10 @@ header a.active {
     background-color: #ffc107;
 }
 
+.content a.color2 {
+    background-color: #292728;
+}
+
 .infectious-diseases {
     padding: 0 80px;
     position: relative;
